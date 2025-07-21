@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中1理科 - 理解サポートアプリ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-blue-600 dark:bg-blue-800 text-white shadow-lg">
+            <div class="container mx-auto px-4 py-6">
+                <div class="flex justify-between items-center">
+                    <h1 class="text-2xl md:text-3xl font-bold">中1理科 理解サポートアプリ</h1>
+                    <button id="darkModeToggle" class="p-2 rounded-lg bg-blue-700 hover:bg-blue-500 transition-colors">
+                        <span class="text-lg">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 py-8">
+            <!-- Progress Overview -->
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">学習進捗</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+                        <h3 class="font-medium text-gray-700 dark:text-gray-300">状態変化</h3>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-2">
+                            <div class="bg-blue-600 h-2 rounded-full" style="width: 0%" id="stateProgress"></div>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+                        <h3 class="font-medium text-gray-700 dark:text-gray-300">水溶液の性質</h3>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-2">
+                            <div class="bg-green-600 h-2 rounded-full" style="width: 0%" id="solutionProgress"></div>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+                        <h3 class="font-medium text-gray-700 dark:text-gray-300">溶解度と濃度</h3>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-2">
+                            <div class="bg-purple-600 h-2 rounded-full" style="width: 0%" id="solubilityProgress"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unit Selection -->
+            <section class="mb-8">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">単元選択</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- State Changes -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                        <div class="bg-blue-500 h-2"></div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">状態変化</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">固体・液体・気体の変化を学習</p>
+                            <div class="space-y-2">
+                                <button onclick="openLesson('state')" class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                                    レッスンを開始
+                                </button>
+                                <button onclick="openSimulation('state')" class="w-full border border-blue-500 text-blue-500 hover:bg-blue-50 dark:hover:bg-gray-700 px-4 py-2 rounded transition-colors">
+                                    シミュレーション
+                                </button>
+                                <button onclick="openQuiz('state')" class="w-full border border-gray-300 text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700 px-4 py-2 rounded transition-colors">
+                                    クイズ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Solutions -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                        <div class="bg-green-500 h-2"></div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">水溶液の性質</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">酸性・中性・アルカリ性</p>
+                            <div class="space-y-2">
+                                <button onclick="openLesson('solution')" class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors">
+                                    レッスンを開始
+                                </button>
+                                <button onclick="openSimulation('solution')" class="w-full border border-green-500 text-green-500 hover:bg-green-50 dark:hover:bg-gray-700 px-4 py-2 rounded transition-colors">
+                                    シミュレーション
+                                </button>
+                                <button onclick="openQuiz('solution')" class="w-full border border-gray-300 text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700 px-4 py-2 rounded transition-colors">
+                                    クイズ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Solubility -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                        <div class="bg-purple-500 h-2"></div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">溶解度と濃度</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">飽和・濃度の計算</p>
+                            <div class="space-y-2">
+                                <button onclick="openLesson('solubility')" class="w-full bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-colors">
+                                    レッスンを開始
+                                </button>
+                                <button onclick="openSimulation('solubility')" class="w-full border border-purple-500 text-purple-500 hover:bg-purple-50 dark:hover:bg-gray-700 px-4 py-2 rounded transition-colors">
+                                    シミュレーション
+                                </button>
+                                <button onclick="openQuiz('solubility')" class="w-full border border-gray-300 text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700 px-4 py-2 rounded transition-colors">
+                                    クイズ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Results -->
+            <section>
+                <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">最近の成績</h2>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+                    <canvas id="resultsChart" width="400" height="200"></canvas>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-4 mt-16">
+            <div class="container mx-auto px-4 text-center">
+                <p>&copy; 2024 中1理科 理解サポートアプリ</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

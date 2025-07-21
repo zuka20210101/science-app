@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>状態変化 - 中1理科</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-blue-600 dark:bg-blue-800 text-white shadow-lg">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <button onclick="history.back()" class="mr-4 p-2 hover:bg-blue-700 rounded">←</button>
+                        <h1 class="inline text-xl md:text-2xl font-bold">状態変化</h1>
+                    </div>
+                    <button id="darkModeToggle" class="p-2 rounded-lg bg-blue-700 hover:bg-blue-500 transition-colors">
+                        <span class="text-lg">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+            <div class="container mx-auto px-4">
+                <div class="flex space-x-8">
+                    <button class="tab-button active" data-tab="lesson">レッスン</button>
+                    <button class="tab-button" data-tab="simulation">シミュレーション</button>
+                    <button class="tab-button" data-tab="quiz">クイズ</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 py-8">
+            <!-- Lesson Tab -->
+            <div id="lesson" class="tab-content active">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200">物質の状態変化</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Theory Cards -->
+                    <div class="space-y-6">
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+                            <h3 class="text-lg font-semibold mb-3 text-blue-600 dark:text-blue-400">物質の三態</h3>
+                            <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                                <li><strong>固体:</strong> 粒子が規則正しく並び、振動している</li>
+                                <li><strong>液体:</strong> 粒子が自由に動き回るが、密度が高い</li>
+                                <li><strong>気体:</strong> 粒子が激しく運動し、自由に飛び回る</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+                            <h3 class="text-lg font-semibold mb-3 text-green-600 dark:text-green-400">状態変化の名前</h3>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div class="border dark:border-gray-600 p-3 rounded">
+                                    <strong>融解</strong><br>
+                                    固体 → 液体
+                                </div>
+                                <div class="border dark:border-gray-600 p-3 rounded">
+                                    <strong>凝固</strong><br>
+                                    液体 → 固体
+                                </div>
+                                <div class="border dark:border-gray-600 p-3 rounded">
+                                    <strong>蒸発</strong><br>
+                                    液体 → 気体
+                                </div>
+                                <div class="border dark:border-gray-600 p-3 rounded">
+                                    <strong>凝縮</strong><br>
+                                    気体 → 液体
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+                            <h3 class="text-lg font-semibold mb-3 text-purple-600 dark:text-purple-400">重要ポイント</h3>
+                            <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                                <li>• 状態変化では物質の性質は変わらない</li>
+                                <li>• 温度によって状態が決まる</li>
+                                <li>• 融点・沸点は物質固有の性質</li>
+                                <li>• 質量は変化しない</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Visual Reference -->
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">温度と状態の関係</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-3 bg-blue-100 dark:bg-blue-900 rounded">
+                                <span class="font-medium">氷（固体）</span>
+                                <span class="text-sm">0℃以下</span>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <span class="text-sm text-gray-500">融解</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-cyan-100 dark:bg-cyan-900 rounded">
+                                <span class="font-medium">水（液体）</span>
+                                <span class="text-sm">0℃〜100℃</span>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <span class="text-sm text-gray-500">蒸発</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-700 rounded">
+                                <span class="font-medium">水蒸気（気体）</span>
+                                <span class="text-sm">100℃以上</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Simulation Tab -->
+            <div id="simulation" class="tab-content">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200">状態変化シミュレーション</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Controls -->
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">温度制御</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                                    温度: <span id="temperatureValue">25</span>℃
+                                </label>
+                                <input 
+                                    type="range" 
+                                    id="temperatureSlider" 
+                                    min="-20" 
+                                    max="120" 
+                                    value="25" 
+                                    class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                                >
+                                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                    <span>-20℃</span>
+                                    <span>120℃</span>
+                                </div>
+                            </div>
+
+                            <div class="border dark:border-gray-600 p-4 rounded">
+                                <h4 class="font-medium mb-2 text-gray-800 dark:text-gray-200">現在の状態</h4>
+                                <div id="currentState" class="text-lg font-bold text-blue-600">液体（水）</div>
+                                <div id="stateDescription" class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                                    粒子は自由に動き回っています
+                                </div>
+                            </div>
+
+                            <div class="flex space-x-2">
+                                <button id="particleToggle" class="flex-1 bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-colors">
+                                    粒子モデル表示
+                                </button>
+                                <button id="resetBtn" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded transition-colors">
+                                    リセット
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Simulation Canvas -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+                            <div id="simulationContainer" class="relative">
+                                <div id="stateVisualization" class="w-full h-80 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-gradient-to-b from-blue-100 to-blue-200 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
+                                    <div id="stateImage" class="text-6xl">💧</div>
+                                </div>
+                                <canvas id="particleCanvas" class="absolute top-0 left-0 w-full h-full hidden rounded-lg"></canvas>
+                            </div>
+                            
+                            <!-- Temperature markers -->
+                            <div class="flex justify-between mt-4 text-sm text-gray-600 dark:text-gray-400">
+                                <div class="text-center">
+                                    <div class="w-1 h-4 bg-blue-400 mx-auto"></div>
+                                    <div>0℃</div>
+                                    <div class="text-xs">融点</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-1 h-4 bg-red-400 mx-auto"></div>
+                                    <div>100℃</div>
+                                    <div class="text-xs">沸点</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Tab -->
+            <div id="quiz" class="tab-content">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200">状態変化クイズ</h2>
+                
+                <div id="quizContainer" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <div id="quizQuestion" class="mb-6">
+                        <h3 class="text-lg font-semibold mb-4">問題 1 / 5</h3>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4">水が氷になる変化を何といいますか？</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                                <input type="radio" name="quiz1" value="a" class="mr-3">
+                                <span>融解</span>
+                            </label>
+                            <label class="flex items-center p-3 border dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                                <input type="radio" name="quiz1" value="b" class="mr-3">
+                                <span>凝固</span>
+                            </label>
+                            <label class="flex items-center p-3 border dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                                <input type="radio" name="quiz1" value="c" class="mr-3">
+                                <span>蒸発</span>
+                            </label>
+                            <label class="flex items-center p-3 border dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                                <input type="radio" name="quiz1" value="d" class="mr-3">
+                                <span>凝縮</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between">
+                        <button id="prevQuestion" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded transition-colors disabled:opacity-50" disabled>
+                            前の問題
+                        </button>
+                        <button id="nextQuestion" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded transition-colors">
+                            次の問題
+                        </button>
+                    </div>
+                    
+                    <div id="quizResult" class="hidden mt-6 p-4 rounded-lg">
+                        <!-- Quiz results will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/state.js"></script>
+</body>
+</html>
